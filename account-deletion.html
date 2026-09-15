@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MapNinja – Hesap Silme / Account Deletion</title>
+  <!--
+    Host this page publicly (for example GitHub Pages) and enter its URL in
+    Google Play Console > App content > Data deletion.
+    Support address: sudevmobapps@gmail.com
+  -->
+  <style>
+    :root { color-scheme: light dark; --bg: #f7f5ff; --card: #fff; --text: #1d1540; --dim: #5d5680; --accent: #ff3d7f; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #12083a; --card: #22164f; --text: #fff; --dim: #c9c2ea; } }
+    body { margin: 0; font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); }
+    main { max-width: 760px; margin: 0 auto; padding: 32px 18px 60px; }
+    h1 { font-size: 1.8rem; margin: 0 0 4px; }
+    h2 { margin-top: 0; }
+    .card { background: var(--card); border-radius: 16px; padding: 22px; margin: 22px 0; box-shadow: 0 6px 24px rgba(0,0,0,.08); }
+    .dim { color: var(--dim); }
+    ol, ul { padding-left: 1.3em; }
+    a { color: var(--accent); }
+    code { background: rgba(127,127,127,.15); padding: 1px 6px; border-radius: 6px; }
+    nav a { margin-right: 14px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>🥷 MapNinja</h1>
+  <p class="dim">Hesap ve veri silme · Account and data deletion</p>
+  <nav><a href="#tr">Türkçe</a><a href="#en">English</a></nav>
+
+  <section class="card" id="tr" lang="tr">
+    <h2>Hesabını silme</h2>
+    <p>MapNinja hesabını ve ona bağlı tüm verileri istediğin zaman silebilirsin.</p>
+
+    <h3>Uygulama içinden (anında)</h3>
+    <ol>
+      <li>MapNinja'yı aç ve <strong>Profil</strong> ekranına git.</li>
+      <li>En alttaki <strong>Hesabımı Sil</strong> butonuna dokun.</li>
+      <li>Onaylamak için kullanıcı adını yaz ve <strong>Kalıcı olarak sil</strong>'e dokun.</li>
+    </ol>
+
+    <h3>Uygulamaya erişemiyorsan (e-posta ile)</h3>
+    <p>
+      <a href="mailto:sudevmobapps@gmail.com?subject=MapNinja%20hesap%20silme%20talebi">sudevmobapps@gmail.com</a> adresine
+      "MapNinja hesap silme talebi" konulu bir e-posta gönder. E-postaya <strong>kullanıcı adını</strong> ve varsa
+      Profil ekranında görünen <strong>hesap kimliğini</strong> yaz. Talebin en geç 30 gün içinde işlenir ve sana bilgi verilir.
+    </p>
+
+    <h3>Silinen veriler</h3>
+    <ul>
+      <li>Kullanıcı adı, avatar ve çerçeve seçimi</li>
+      <li>Level ilerlemesi, yıldızlar, puanlar ve coin bakiyesi</li>
+      <li>Kozmetik envanteri</li>
+      <li>Düello ratingleri, haftalık lig ve özel lig üyelikleri</li>
+      <li>Bildirim token'ları</li>
+      <li>Uygulama içi satın alma müşteri kaydı (RevenueCat)</li>
+    </ul>
+
+    <h3>Saklanan veriler</h3>
+    <ul>
+      <li>Rakiplerinin oynadığı düello sonuçları, senin kimliğin ve kullanıcı adın olmadan anonim olarak kalır (rakiplerinin puanları bozulmasın diye).</li>
+      <li>Satın alma faturaları Google Play tarafından yasal yükümlülükler kapsamında saklanır; bunlar MapNinja'nın kontrolünde değildir.</li>
+    </ul>
+    <p class="dim">Satın alınmış coinler hesap silindiğinde iade edilmez.</p>
+  </section>
+
+  <section class="card" id="en" lang="en">
+    <h2>Deleting your account</h2>
+    <p>You can delete your MapNinja account and all data linked to it at any time.</p>
+
+    <h3>In the app (immediate)</h3>
+    <ol>
+      <li>Open MapNinja and go to the <strong>Profile</strong> screen.</li>
+      <li>Tap <strong>Delete My Account</strong> at the bottom.</li>
+      <li>Type your username to confirm and tap <strong>Delete permanently</strong>.</li>
+    </ol>
+
+    <h3>If you cannot access the app (by email)</h3>
+    <p>
+      Send an email with the subject "MapNinja account deletion request" to
+      <a href="mailto:sudevmobapps@gmail.com?subject=MapNinja%20account%20deletion%20request">sudevmobapps@gmail.com</a>.
+      Include your <strong>username</strong> and, if you have it, the <strong>account ID</strong> shown on the Profile screen.
+      Requests are processed within 30 days and you will be notified.
+    </p>
+
+    <h3>Data that is deleted</h3>
+    <ul>
+      <li>Username, avatar and frame</li>
+      <li>Level progress, stars, scores and coin balance</li>
+      <li>Cosmetic inventory</li>
+      <li>Duel ratings, weekly league and private league memberships</li>
+      <li>Push notification tokens</li>
+      <li>In-app purchase customer record (RevenueCat)</li>
+    </ul>
+
+    <h3>Data that is kept</h3>
+    <ul>
+      <li>Results of duels your opponents played remain anonymously, without your ID or username, so their scores stay correct.</li>
+      <li>Purchase receipts are retained by Google Play for legal reasons and are outside MapNinja's control.</li>
+    </ul>
+    <p class="dim">Purchased coins are not refunded when an account is deleted.</p>
+  </section>
+</main>
+</body>
+</html>
