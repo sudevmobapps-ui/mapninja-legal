@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MapNinja</title>
-  <meta name="description" content="MapNinja: bayrak, harita ve başkent bilgi yarışması. / Flag, map and capital quiz game.">
+  <meta name="description" content="MapNinja: flag, map and capital quiz game. Privacy policy, account deletion and support.">
   <style>
 :root {
   --bg: #12083a;
@@ -64,36 +64,160 @@ a { color: var(--accent); }
 .updated { font-size: 14px; color: var(--dim); }
 hr { border: 0; border-top: 1px solid var(--border); margin: 40px 0; }
 footer { text-align: center; font-size: 14px; color: var(--dim); margin-top: 40px; }
+  
+.js main > section[id] { display: none; }
+.js main > section.active { display: block; }
+.js main > hr { display: none; }
+.js main > section > h1 { display: none; }
+.lang a.current { color: var(--text); text-decoration: none; background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; }
+.lang { line-height: 2.2; }
   </style>
+  <script>
+  (function () {
+    var LANGS = ["tr", "en", "de", "es", "fr", "pt", "ar", "ru"];
+    var TITLES = {"tr": "MapNinja", "en": "MapNinja", "de": "MapNinja", "es": "MapNinja", "fr": "MapNinja", "pt": "MapNinja", "ar": "MapNinja", "ru": "MapNinja"};
+    // Language from the link (#de), else the browser's languages, else English.
+    function pick() {
+      var h = location.hash.slice(1);
+      if (LANGS.indexOf(h) >= 0) return h;
+      var list = navigator.languages || [navigator.language || 'en'];
+      for (var i = 0; i < list.length; i++) {
+        var c = String(list[i]).slice(0, 2).toLowerCase();
+        if (LANGS.indexOf(c) >= 0) return c;
+      }
+      return 'en';
+    }
+    function show() {
+      var l = pick();
+      document.documentElement.lang = l;
+      document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
+      LANGS.forEach(function (c) {
+        var s = document.getElementById(c);
+        if (s) s.classList.toggle('active', c === l);
+      });
+      document.querySelectorAll('.lang a[href^="#"]').forEach(function (a) {
+        a.classList.toggle('current', a.getAttribute('href') === '#' + l);
+      });
+      var t = document.getElementById('page-title');
+      if (t && TITLES[l]) t.textContent = TITLES[l];
+      document.title = TITLES[l] === 'MapNinja' ? 'MapNinja' : 'MapNinja – ' + TITLES[l];
+      // Links to the other pages keep the chosen language.
+      document.querySelectorAll('a[data-page]').forEach(function (a) {
+        a.setAttribute('href', a.getAttribute('data-page') + '#' + l);
+      });
+      window.scrollTo(0, 0);
+    }
+    document.documentElement.classList.add('js');
+    window.addEventListener('hashchange', show);
+    document.addEventListener('DOMContentLoaded', show);
+  })();
+  </script>
 </head>
 <body>
 <main>
   <header>
     <div class="logo">🥷🗺️</div>
     <h1>MapNinja</h1>
-    <p class="tagline">Bayrakların ustası ol! · Become a master of flags!</p>
-    <nav class="links">
-      <a href="privacy.html">Gizlilik Politikası · Privacy Policy</a>
-      <a href="delete-account.html">Hesap Silme · Delete Account</a>
-      <a href="mailto:sudevmobapps@gmail.com">Destek · Support</a>
-    </nav>
   </header>
+  <p class="lang"><a href="#tr">Türkçe</a> · <a href="#en">English</a> · <a href="#de">Deutsch</a> · <a href="#es">Español</a> · <a href="#fr">Français</a> · <a href="#pt">Português</a> · <a href="#ar">العربية</a> · <a href="#ru">Русский</a></p>
 
-  <section class="card">
-    <h2>Türkçe</h2>
+  <section id="tr" lang="tr" class="card">
+    <p class="tagline" style="text-align:center;font-size:18px;color:var(--text)"><strong>Bayrakların ustası ol!</strong></p>
     <p>MapNinja; bayrakları, haritaları, başkentleri ve ülkeleri öğreten bir bilgi yarışması oyunudur. Seviyeler, günlük meydan okuma, bölge paketleri, sezonlar, arkadaşlarla canlı düellolar ve öğretmenler için sınıf modu içerir.</p>
+    <nav class="links">
+      <a href="privacy.html#tr">Gizlilik Politikası</a>
+      <a href="delete-account.html#tr">Hesap Silme</a>
+      <a href="mailto:sudevmobapps@gmail.com">E-posta</a>
+    </nav>
     <h3>Destek</h3>
-    <p>Soru, hata bildirimi veya öneri için: <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a>. E-postana uygulamadaki kullanıcı adını ve mümkünse Profil ekranındaki <em>Hesap kimliği</em>ni eklersen daha hızlı yardımcı olabiliriz.</p>
+    <p>Soru, hata bildirimi veya öneri için bize yaz. Uygulamadaki kullanıcı adını ve mümkünse Profil ekranındaki <em>Hesap kimliği</em>ni eklersen daha hızlı yardımcı olabiliriz. <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a></p>
   </section>
 
-  <section class="card">
-    <h2>English</h2>
+  <section id="en" lang="en" class="card">
+    <p class="tagline" style="text-align:center;font-size:18px;color:var(--text)"><strong>Become a master of flags!</strong></p>
     <p>MapNinja is a quiz game that teaches flags, maps, capitals and countries. It has levels, a daily challenge, region packs, seasons, live duels with friends and a class mode for teachers.</p>
+    <nav class="links">
+      <a href="privacy.html#en">Privacy Policy</a>
+      <a href="delete-account.html#en">Delete Account</a>
+      <a href="mailto:sudevmobapps@gmail.com">Email</a>
+    </nav>
     <h3>Support</h3>
-    <p>Questions, bug reports or ideas: <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a>. Adding your in-app username and, if possible, the <em>Account ID</em> from the Profile screen helps us answer faster.</p>
+    <p>Questions, bug reports or ideas: write to us. Adding your in-app username and, if possible, the <em>Account ID</em> from the Profile screen helps us answer faster. <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a></p>
   </section>
 
-  <footer>© 2026 MapNinja · <a href="privacy.html">Privacy</a> · <a href="delete-account.html">Delete account</a></footer>
+  <section id="de" lang="de" class="card">
+    <p class="tagline" style="text-align:center;font-size:18px;color:var(--text)"><strong>Werde zum Flaggen-Meister!</strong></p>
+    <p>MapNinja ist ein Quizspiel, mit dem du Flaggen, Karten, Hauptstädte und Länder lernst. Es gibt Level, eine tägliche Herausforderung, Regionenpakete, Saisons, Live-Duelle mit Freunden und einen Klassenmodus für Lehrkräfte.</p>
+    <nav class="links">
+      <a href="privacy.html#de">Datenschutzerklärung</a>
+      <a href="delete-account.html#de">Konto löschen</a>
+      <a href="mailto:sudevmobapps@gmail.com">E-Mail</a>
+    </nav>
+    <h3>Support</h3>
+    <p>Fragen, Fehlermeldungen oder Ideen: schreib uns. Wenn du deinen Benutzernamen und nach Möglichkeit die <em>Konto-ID</em> aus dem Profil angibst, können wir schneller helfen. <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a></p>
+  </section>
+
+  <section id="es" lang="es" class="card">
+    <p class="tagline" style="text-align:center;font-size:18px;color:var(--text)"><strong>¡Conviértete en maestro de las banderas!</strong></p>
+    <p>MapNinja es un juego de preguntas para aprender banderas, mapas, capitales y países. Tiene niveles, un desafío diario, packs de regiones, temporadas, duelos en vivo con amigos y un modo clase para profesores.</p>
+    <nav class="links">
+      <a href="privacy.html#es">Política de privacidad</a>
+      <a href="delete-account.html#es">Eliminar cuenta</a>
+      <a href="mailto:sudevmobapps@gmail.com">Correo</a>
+    </nav>
+    <h3>Soporte</h3>
+    <p>¿Preguntas, errores o ideas? Escríbenos. Si incluyes tu nombre de usuario y, si es posible, el <em>ID de cuenta</em> de la pantalla Perfil, podremos ayudarte más rápido. <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a></p>
+  </section>
+
+  <section id="fr" lang="fr" class="card">
+    <p class="tagline" style="text-align:center;font-size:18px;color:var(--text)"><strong>Deviens un maître des drapeaux !</strong></p>
+    <p>MapNinja est un jeu de quiz pour apprendre les drapeaux, les cartes, les capitales et les pays. Il propose des niveaux, un défi quotidien, des packs régionaux, des saisons, des duels en direct entre amis et un mode classe pour les enseignants.</p>
+    <nav class="links">
+      <a href="privacy.html#fr">Politique de confidentialité</a>
+      <a href="delete-account.html#fr">Supprimer le compte</a>
+      <a href="mailto:sudevmobapps@gmail.com">E-mail</a>
+    </nav>
+    <h3>Assistance</h3>
+    <p>Questions, bugs ou idées : écrivez-nous. Indiquer votre nom d'utilisateur et, si possible, l'<em>identifiant du compte</em> affiché dans le Profil nous aide à répondre plus vite. <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a></p>
+  </section>
+
+  <section id="pt" lang="pt" class="card">
+    <p class="tagline" style="text-align:center;font-size:18px;color:var(--text)"><strong>Torne-se um mestre das bandeiras!</strong></p>
+    <p>MapNinja é um jogo de perguntas para aprender bandeiras, mapas, capitais e países. Tem níveis, um desafio diário, pacotes de regiões, temporadas, duelos ao vivo com amigos e um modo turma para professores.</p>
+    <nav class="links">
+      <a href="privacy.html#pt">Política de Privacidade</a>
+      <a href="delete-account.html#pt">Excluir conta</a>
+      <a href="mailto:sudevmobapps@gmail.com">E-mail</a>
+    </nav>
+    <h3>Suporte</h3>
+    <p>Dúvidas, erros ou ideias: escreva para nós. Informar seu nome de usuário e, se possível, o <em>ID da conta</em> da tela Perfil nos ajuda a responder mais rápido. <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a></p>
+  </section>
+
+  <section id="ar" lang="ar" dir="rtl" class="card">
+    <p class="tagline" style="text-align:center;font-size:18px;color:var(--text)"><strong>كن سيد الأعلام!</strong></p>
+    <p>MapNinja لعبة مسابقات لتعلّم الأعلام والخرائط والعواصم والدول. تتضمن مستويات وتحديًا يوميًا وحزم مناطق ومواسم ومبارزات مباشرة مع الأصدقاء ووضع الفصل للمعلمين.</p>
+    <nav class="links">
+      <a href="privacy.html#ar">سياسة الخصوصية</a>
+      <a href="delete-account.html#ar">حذف الحساب</a>
+      <a href="mailto:sudevmobapps@gmail.com">البريد الإلكتروني</a>
+    </nav>
+    <h3>الدعم</h3>
+    <p>للأسئلة أو الإبلاغ عن الأخطاء أو الاقتراحات راسلنا. إضافة اسم المستخدم في التطبيق، و<em>معرّف الحساب</em> من شاشة الملف الشخصي إن أمكن، تساعدنا على الرد بشكل أسرع. <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a></p>
+  </section>
+
+  <section id="ru" lang="ru" class="card">
+    <p class="tagline" style="text-align:center;font-size:18px;color:var(--text)"><strong>Стань мастером флагов!</strong></p>
+    <p>MapNinja — это викторина, которая учит флагам, картам, столицам и странам. В игре есть уровни, ежедневное испытание, региональные наборы, сезоны, живые дуэли с друзьями и режим класса для учителей.</p>
+    <nav class="links">
+      <a href="privacy.html#ru">Политика конфиденциальности</a>
+      <a href="delete-account.html#ru">Удаление аккаунта</a>
+      <a href="mailto:sudevmobapps@gmail.com">E-mail</a>
+    </nav>
+    <h3>Поддержка</h3>
+    <p>Вопросы, ошибки или идеи — пишите нам. Если укажете имя пользователя и, по возможности, <em>ID аккаунта</em> из экрана «Профиль», мы ответим быстрее. <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a></p>
+  </section>
+
+  <footer>© 2026 MapNinja · <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a></footer>
 </main>
 </body>
 </html>

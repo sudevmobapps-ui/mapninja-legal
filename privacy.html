@@ -63,16 +63,64 @@ a { color: var(--accent); }
 .updated { font-size: 14px; color: var(--dim); }
 hr { border: 0; border-top: 1px solid var(--border); margin: 40px 0; }
 footer { text-align: center; font-size: 14px; color: var(--dim); margin-top: 40px; }
+
+.js main > section[id] { display: none; }
+.js main > section.active { display: block; }
+.js main > hr { display: none; }
+.js main > section > h1 { display: none; }
+.lang a.current { color: var(--text); text-decoration: none; background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; }
+.lang { line-height: 2.2; }
   </style>
+  <script>
+  (function () {
+    var LANGS = ["tr", "en", "de", "es", "fr", "pt", "ar", "ru"];
+    var TITLES = {"tr": "Gizlilik Politikası", "en": "Privacy Policy", "de": "Datenschutzerklärung", "es": "Política de privacidad", "fr": "Politique de confidentialité", "pt": "Política de Privacidade", "ar": "سياسة الخصوصية", "ru": "Политика конфиденциальности"};
+    // Language from the link (#de), else the browser's languages, else English.
+    function pick() {
+      var h = location.hash.slice(1);
+      if (LANGS.indexOf(h) >= 0) return h;
+      var list = navigator.languages || [navigator.language || 'en'];
+      for (var i = 0; i < list.length; i++) {
+        var c = String(list[i]).slice(0, 2).toLowerCase();
+        if (LANGS.indexOf(c) >= 0) return c;
+      }
+      return 'en';
+    }
+    function show() {
+      var l = pick();
+      document.documentElement.lang = l;
+      document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
+      LANGS.forEach(function (c) {
+        var s = document.getElementById(c);
+        if (s) s.classList.toggle('active', c === l);
+      });
+      document.querySelectorAll('.lang a[href^="#"]').forEach(function (a) {
+        a.classList.toggle('current', a.getAttribute('href') === '#' + l);
+      });
+      var t = document.getElementById('page-title');
+      if (t && TITLES[l]) t.textContent = TITLES[l];
+      document.title = TITLES[l] === 'MapNinja' ? 'MapNinja' : 'MapNinja – ' + TITLES[l];
+      // Links to the other pages keep the chosen language.
+      document.querySelectorAll('a[data-page]').forEach(function (a) {
+        a.setAttribute('href', a.getAttribute('data-page') + '#' + l);
+      });
+      window.scrollTo(0, 0);
+    }
+    document.documentElement.classList.add('js');
+    window.addEventListener('hashchange', show);
+    document.addEventListener('DOMContentLoaded', show);
+  })();
+  </script>
+
 </head>
 <body>
 <main>
   <header>
     <div class="logo">🥷</div>
-    <h1>Gizlilik Politikası</h1>
-    <p class="tagline">Privacy Policy · MapNinja</p>
+    <h1 id="page-title">Gizlilik Politikası</h1>
+    <p class="tagline">MapNinja</p>
   </header>
-  <p class="lang"><a href="#tr">Türkçe</a> · <a href="#en">English</a> · <a href="#de">Deutsch</a> · <a href="#es">Español</a> · <a href="#fr">Français</a> · <a href="#pt">Português</a> · <a href="#ar">العربية</a> · <a href="#ru">Русский</a> · <a href="index.html">Ana sayfa / Home</a></p>
+  <p class="lang"><a href="#tr">Türkçe</a> · <a href="#en">English</a> · <a href="#de">Deutsch</a> · <a href="#es">Español</a> · <a href="#fr">Français</a> · <a href="#pt">Português</a> · <a href="#ar">العربية</a> · <a href="#ru">Русский</a> · <a data-page="index.html" href="index.html" aria-label="Home">🏠</a></p>
 
   <!-- ============================================================ TÜRKÇE -->
   <section id="tr">
@@ -141,7 +189,7 @@ footer { text-align: center; font-size: 14px; color: var(--dim); margin-top: 40p
     </ul>
 
     <h2>4. Saklama ve silme</h2>
-    <p>Verilerini hesabın var olduğu sürece saklarız. Hesabını istediğin an uygulamadan silebilirsin: <strong>Profil → Hesap → Hesabımı Sil</strong>. Bu işlem kullanıcı adını, ilerlemeni, coinlerini, kozmetiklerini, reytinglerini, arkadaşlıklarını ve üyeliklerini, bildirim anahtarını ve RevenueCat kaydını kalıcı olarak siler; geri alınamaz. Diğer oyuncuların kendi verileri (ör. kendi maç geçmişleri) korunur ama artık senin hesabınla ilişkilendirilmez. Sahibi olduğun sınıflar da silinir. Satın alma kayıtlarının Apple veya Google'daki kopyaları onların politikalarına tabidir. Ayrıntılar: <a href="delete-account.html">Hesap silme</a>.</p>
+    <p>Verilerini hesabın var olduğu sürece saklarız. Hesabını istediğin an uygulamadan silebilirsin: <strong>Profil → Hesap → Hesabımı Sil</strong>. Bu işlem kullanıcı adını, ilerlemeni, coinlerini, kozmetiklerini, reytinglerini, arkadaşlıklarını ve üyeliklerini, bildirim anahtarını ve RevenueCat kaydını kalıcı olarak siler; geri alınamaz. Diğer oyuncuların kendi verileri (ör. kendi maç geçmişleri) korunur ama artık senin hesabınla ilişkilendirilmez. Sahibi olduğun sınıflar da silinir. Satın alma kayıtlarının Apple veya Google'daki kopyaları onların politikalarına tabidir. Ayrıntılar: <a data-page="delete-account.html" href="delete-account.html">Hesap silme</a>.</p>
 
     <h2>5. Çocuklar</h2>
     <p>Uygulama 13 yaşından küçük çocuklara yönelik değildir (bazı AB ülkelerinde bu yaş 16'dır) ve bu yaşın altındaki çocuklardan bilerek kişisel veri toplamayız. Çocuğunun bize veri verdiğini düşünen ebeveynler <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a> adresinden bize ulaşabilir; ilgili hesabı sileriz.</p>
@@ -226,7 +274,7 @@ footer { text-align: center; font-size: 14px; color: var(--dim); margin-top: 40p
     </ul>
 
     <h2>4. Retention and deletion</h2>
-    <p>We keep your data for as long as your account exists. You can delete your account in the App at any time: <strong>Profile → Account → Delete My Account</strong>. This permanently deletes your username, progress, coins, cosmetics, ratings, friendships and memberships, push token and RevenueCat record, and cannot be undone. Other players keep their own data (for example their match history), but it is no longer linked to your account. Classes you own are deleted too. Copies of purchase records at Apple or Google are subject to their policies. Details: <a href="delete-account.html">Delete account</a>.</p>
+    <p>We keep your data for as long as your account exists. You can delete your account in the App at any time: <strong>Profile → Account → Delete My Account</strong>. This permanently deletes your username, progress, coins, cosmetics, ratings, friendships and memberships, push token and RevenueCat record, and cannot be undone. Other players keep their own data (for example their match history), but it is no longer linked to your account. Classes you own are deleted too. Copies of purchase records at Apple or Google are subject to their policies. Details: <a data-page="delete-account.html" href="delete-account.html">Delete account</a>.</p>
 
     <h2>5. Children</h2>
     <p>The App is not directed at children under 13 (16 in some EU countries), and we do not knowingly collect personal data from children below that age. Parents who believe their child has given us data can contact <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a> and we will delete the account.</p>
@@ -310,7 +358,7 @@ footer { text-align: center; font-size: 14px; color: var(--dim); margin-top: 40p
     </ul>
 
     <h2>4. Speicherung und Löschung</h2>
-    <p>Wir speichern deine Daten, solange dein Konto besteht. Du kannst dein Konto jederzeit in der App löschen: <strong>Profil → Konto → Mein Konto löschen</strong>. Dabei werden Benutzername, Fortschritt, Münzen, Kosmetik-Items, Wertungen, Freundschaften und Mitgliedschaften, Push-Token und der RevenueCat-Datensatz endgültig gelöscht; das lässt sich nicht rückgängig machen. Andere Spieler behalten ihre eigenen Daten (z. B. ihren Spielverlauf), die dann nicht mehr mit deinem Konto verknüpft sind. Klassen, die dir gehören, werden ebenfalls gelöscht. Kopien der Kaufbelege bei Apple oder Google unterliegen deren Richtlinien. Details: <a href="delete-account.html#de">Konto löschen</a>.</p>
+    <p>Wir speichern deine Daten, solange dein Konto besteht. Du kannst dein Konto jederzeit in der App löschen: <strong>Profil → Konto → Mein Konto löschen</strong>. Dabei werden Benutzername, Fortschritt, Münzen, Kosmetik-Items, Wertungen, Freundschaften und Mitgliedschaften, Push-Token und der RevenueCat-Datensatz endgültig gelöscht; das lässt sich nicht rückgängig machen. Andere Spieler behalten ihre eigenen Daten (z. B. ihren Spielverlauf), die dann nicht mehr mit deinem Konto verknüpft sind. Klassen, die dir gehören, werden ebenfalls gelöscht. Kopien der Kaufbelege bei Apple oder Google unterliegen deren Richtlinien. Details: <a data-page="delete-account.html" href="delete-account.html">Konto löschen</a>.</p>
 
     <h2>5. Kinder</h2>
     <p>Die App richtet sich nicht an Kinder unter 13 Jahren (in einigen EU-Ländern unter 16), und wir erheben wissentlich keine personenbezogenen Daten von Kindern unter diesem Alter. Eltern, die glauben, dass ihr Kind uns Daten übermittelt hat, können sich an <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a> wenden; wir löschen dann das Konto.</p>
@@ -394,7 +442,7 @@ footer { text-align: center; font-size: 14px; color: var(--dim); margin-top: 40p
     </ul>
 
     <h2>4. Conservación y eliminación</h2>
-    <p>Conservamos tus datos mientras exista tu cuenta. Puedes eliminar tu cuenta en la App cuando quieras: <strong>Perfil → Cuenta → Eliminar mi cuenta</strong>. Esto borra de forma permanente tu nombre de usuario, progreso, monedas, artículos cosméticos, valoraciones, amistades y membresías, token de notificaciones y el registro de RevenueCat, y no se puede deshacer. Los demás jugadores conservan sus propios datos (por ejemplo, su historial de partidas), que dejan de estar vinculados a tu cuenta. También se eliminan las clases que te pertenecen. Las copias de los registros de compra en Apple o Google se rigen por sus políticas. Detalles: <a href="delete-account.html#es">Eliminar cuenta</a>.</p>
+    <p>Conservamos tus datos mientras exista tu cuenta. Puedes eliminar tu cuenta en la App cuando quieras: <strong>Perfil → Cuenta → Eliminar mi cuenta</strong>. Esto borra de forma permanente tu nombre de usuario, progreso, monedas, artículos cosméticos, valoraciones, amistades y membresías, token de notificaciones y el registro de RevenueCat, y no se puede deshacer. Los demás jugadores conservan sus propios datos (por ejemplo, su historial de partidas), que dejan de estar vinculados a tu cuenta. También se eliminan las clases que te pertenecen. Las copias de los registros de compra en Apple o Google se rigen por sus políticas. Detalles: <a data-page="delete-account.html" href="delete-account.html">Eliminar cuenta</a>.</p>
 
     <h2>5. Menores</h2>
     <p>La App no está dirigida a menores de 13 años (16 en algunos países de la UE) y no recogemos conscientemente datos personales de menores de esa edad. Los padres que crean que su hijo nos ha facilitado datos pueden escribir a <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a> y eliminaremos la cuenta.</p>
@@ -478,7 +526,7 @@ footer { text-align: center; font-size: 14px; color: var(--dim); margin-top: 40p
     </ul>
 
     <h2>4. Conservation et suppression</h2>
-    <p>Nous conservons vos données tant que votre compte existe. Vous pouvez supprimer votre compte à tout moment dans l'Application : <strong>Profil → Compte → Supprimer mon compte</strong>. Cela supprime définitivement votre nom d'utilisateur, votre progression, vos pièces, vos objets cosmétiques, vos classements, vos amitiés et adhésions, votre jeton de notification et votre enregistrement RevenueCat ; c'est irréversible. Les autres joueurs conservent leurs propres données (par exemple leur historique de matchs), qui ne sont plus liées à votre compte. Les classes dont vous êtes propriétaire sont également supprimées. Les copies des reçus d'achat chez Apple ou Google relèvent de leurs politiques. Détails : <a href="delete-account.html#fr">Supprimer le compte</a>.</p>
+    <p>Nous conservons vos données tant que votre compte existe. Vous pouvez supprimer votre compte à tout moment dans l'Application : <strong>Profil → Compte → Supprimer mon compte</strong>. Cela supprime définitivement votre nom d'utilisateur, votre progression, vos pièces, vos objets cosmétiques, vos classements, vos amitiés et adhésions, votre jeton de notification et votre enregistrement RevenueCat ; c'est irréversible. Les autres joueurs conservent leurs propres données (par exemple leur historique de matchs), qui ne sont plus liées à votre compte. Les classes dont vous êtes propriétaire sont également supprimées. Les copies des reçus d'achat chez Apple ou Google relèvent de leurs politiques. Détails : <a data-page="delete-account.html" href="delete-account.html">Supprimer le compte</a>.</p>
 
     <h2>5. Enfants</h2>
     <p>L'Application ne s'adresse pas aux enfants de moins de 13 ans (15 ou 16 ans dans certains pays de l'UE) et nous ne collectons pas sciemment de données personnelles d'enfants en dessous de cet âge. Les parents qui pensent que leur enfant nous a transmis des données peuvent écrire à <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a> ; nous supprimerons le compte.</p>
@@ -562,7 +610,7 @@ footer { text-align: center; font-size: 14px; color: var(--dim); margin-top: 40p
     </ul>
 
     <h2>4. Retenção e exclusão</h2>
-    <p>Guardamos seus dados enquanto sua conta existir. Você pode excluir sua conta no App a qualquer momento: <strong>Perfil → Conta → Excluir minha conta</strong>. Isso apaga permanentemente seu nome de usuário, progresso, moedas, itens cosméticos, classificações, amizades e participações, token de notificação e o registro no RevenueCat, e não pode ser desfeito. Os outros jogadores mantêm os próprios dados (por exemplo, o histórico de partidas deles), que deixam de estar vinculados à sua conta. As turmas que pertencem a você também são excluídas. Cópias dos registros de compra na Apple ou no Google seguem as políticas deles. Detalhes: <a href="delete-account.html#pt">Excluir conta</a>.</p>
+    <p>Guardamos seus dados enquanto sua conta existir. Você pode excluir sua conta no App a qualquer momento: <strong>Perfil → Conta → Excluir minha conta</strong>. Isso apaga permanentemente seu nome de usuário, progresso, moedas, itens cosméticos, classificações, amizades e participações, token de notificação e o registro no RevenueCat, e não pode ser desfeito. Os outros jogadores mantêm os próprios dados (por exemplo, o histórico de partidas deles), que deixam de estar vinculados à sua conta. As turmas que pertencem a você também são excluídas. Cópias dos registros de compra na Apple ou no Google seguem as políticas deles. Detalhes: <a data-page="delete-account.html" href="delete-account.html">Excluir conta</a>.</p>
 
     <h2>5. Crianças</h2>
     <p>O App não é destinado a menores de 13 anos (16 em alguns países da UE) e não coletamos intencionalmente dados pessoais de crianças abaixo dessa idade. Pais que acreditem que o filho nos forneceu dados podem escrever para <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a> e excluiremos a conta.</p>
@@ -646,7 +694,7 @@ footer { text-align: center; font-size: 14px; color: var(--dim); margin-top: 40p
     </ul>
 
     <h2>4. الاحتفاظ والحذف</h2>
-    <p>نحتفظ ببياناتك طالما أن حسابك موجود. يمكنك حذف حسابك من التطبيق في أي وقت: <strong>الملف الشخصي ← الحساب ← حذف حسابي</strong>. يؤدي ذلك إلى حذف اسم المستخدم والتقدم والعملات والعناصر التجميلية والتصنيفات والصداقات والعضويات ورمز الإشعارات وسجل RevenueCat نهائيًا، ولا يمكن التراجع عنه. يحتفظ اللاعبون الآخرون ببياناتهم الخاصة (مثل سجل مبارياتهم)، لكنها لم تعد مرتبطة بحسابك. كما تُحذف الفصول التي تملكها. تخضع نسخ سجلات الشراء لدى Apple أو Google لسياساتهما. التفاصيل: <a href="delete-account.html#ar">حذف الحساب</a>.</p>
+    <p>نحتفظ ببياناتك طالما أن حسابك موجود. يمكنك حذف حسابك من التطبيق في أي وقت: <strong>الملف الشخصي ← الحساب ← حذف حسابي</strong>. يؤدي ذلك إلى حذف اسم المستخدم والتقدم والعملات والعناصر التجميلية والتصنيفات والصداقات والعضويات ورمز الإشعارات وسجل RevenueCat نهائيًا، ولا يمكن التراجع عنه. يحتفظ اللاعبون الآخرون ببياناتهم الخاصة (مثل سجل مبارياتهم)، لكنها لم تعد مرتبطة بحسابك. كما تُحذف الفصول التي تملكها. تخضع نسخ سجلات الشراء لدى Apple أو Google لسياساتهما. التفاصيل: <a data-page="delete-account.html" href="delete-account.html">حذف الحساب</a>.</p>
 
     <h2>5. الأطفال</h2>
     <p>التطبيق غير موجّه للأطفال دون 13 عامًا (16 عامًا في بعض دول الاتحاد الأوروبي)، ولا نجمع عن علم بيانات شخصية من الأطفال دون هذا العمر. يمكن للوالدين الذين يعتقدون أن طفلهم قدّم لنا بيانات مراسلتنا على <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a> وسنحذف الحساب.</p>
@@ -730,7 +778,7 @@ footer { text-align: center; font-size: 14px; color: var(--dim); margin-top: 40p
     </ul>
 
     <h2>4. Хранение и удаление</h2>
-    <p>Мы храним данные, пока существует ваш аккаунт. Удалить аккаунт можно в Приложении в любой момент: <strong>Профиль → Аккаунт → Удалить аккаунт</strong>. При этом безвозвратно удаляются имя пользователя, прогресс, монеты, косметические предметы, рейтинги, друзья и членства, push-токен и запись в RevenueCat. Другие игроки сохраняют свои данные (например, историю своих матчей), но они больше не связаны с вашим аккаунтом. Классы, владельцем которых вы являетесь, тоже удаляются. Копии записей о покупках у Apple или Google подчиняются их политикам. Подробнее: <a href="delete-account.html#ru">Удаление аккаунта</a>.</p>
+    <p>Мы храним данные, пока существует ваш аккаунт. Удалить аккаунт можно в Приложении в любой момент: <strong>Профиль → Аккаунт → Удалить аккаунт</strong>. При этом безвозвратно удаляются имя пользователя, прогресс, монеты, косметические предметы, рейтинги, друзья и членства, push-токен и запись в RevenueCat. Другие игроки сохраняют свои данные (например, историю своих матчей), но они больше не связаны с вашим аккаунтом. Классы, владельцем которых вы являетесь, тоже удаляются. Копии записей о покупках у Apple или Google подчиняются их политикам. Подробнее: <a data-page="delete-account.html" href="delete-account.html">Удаление аккаунта</a>.</p>
 
     <h2>5. Дети</h2>
     <p>Приложение не предназначено для детей младше 13 лет (в некоторых странах ЕС — младше 16), и мы сознательно не собираем персональные данные детей младше этого возраста. Родители, считающие, что их ребёнок передал нам данные, могут написать на <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a> — мы удалим аккаунт.</p>
@@ -745,7 +793,7 @@ footer { text-align: center; font-size: 14px; color: var(--dim); margin-top: 40p
     <p>Мы можем обновлять эту политику. О важных изменениях мы сообщим в Приложении или на этой странице; дата вступления в силу указана вверху.</p>
   </section>
 
-  <footer><a href="index.html">MapNinja</a> · <a href="delete-account.html">Delete account</a> · <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a></footer>
+  <footer><a data-page="index.html" href="index.html">MapNinja</a> · <a data-page="delete-account.html" href="delete-account.html">Delete account</a> · <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a></footer>
 </main>
 </body>
 </html>
