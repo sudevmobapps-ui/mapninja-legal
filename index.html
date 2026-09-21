@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MapNinja</title>
+  <meta name="description" content="MapNinja: bayrak, harita ve başkent bilgi yarışması. / Flag, map and capital quiz game.">
+  <style>
+:root {
+  --bg: #12083a;
+  --bg2: #2b0f6b;
+  --card: rgba(255, 255, 255, 0.07);
+  --border: rgba(255, 255, 255, 0.16);
+  --text: #ffffff;
+  --dim: rgba(255, 255, 255, 0.74);
+  --accent: #ffc93c;
+  --pink: #ff3d7f;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--bg2), var(--bg)) fixed;
+  color: var(--text);
+  font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+
+header { text-align: center; margin-bottom: 28px; }
+.logo { font-size: 56px; line-height: 1; }
+h1 { margin: 8px 0 4px; font-size: 34px; font-weight: 900; }
+h2 { margin: 32px 0 8px; font-size: 22px; color: var(--accent); }
+h3 { margin: 22px 0 6px; font-size: 17px; }
+p, li { color: var(--dim); }
+a { color: var(--accent); }
+.tagline { margin: 0; color: var(--dim); }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px 20px;
+  margin: 16px 0;
+}
+
+.links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 18px; }
+.links a {
+  text-decoration: none;
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-weight: 700;
+}
+.links a:hover { border-color: var(--accent); }
+
+.lang { text-align: center; margin-bottom: 20px; }
+.lang a { margin: 0 8px; font-weight: 700; }
+
+.updated { font-size: 14px; color: var(--dim); }
+hr { border: 0; border-top: 1px solid var(--border); margin: 40px 0; }
+footer { text-align: center; font-size: 14px; color: var(--dim); margin-top: 40px; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="logo">🥷🗺️</div>
+    <h1>MapNinja</h1>
+    <p class="tagline">Bayrakların ustası ol! · Become a master of flags!</p>
+    <nav class="links">
+      <a href="privacy.html">Gizlilik Politikası · Privacy Policy</a>
+      <a href="delete-account.html">Hesap Silme · Delete Account</a>
+      <a href="mailto:sudevmobapps@gmail.com">Destek · Support</a>
+    </nav>
+  </header>
+
+  <section class="card">
+    <h2>Türkçe</h2>
+    <p>MapNinja; bayrakları, haritaları, başkentleri ve ülkeleri öğreten bir bilgi yarışması oyunudur. Seviyeler, günlük meydan okuma, bölge paketleri, sezonlar, arkadaşlarla canlı düellolar ve öğretmenler için sınıf modu içerir.</p>
+    <h3>Destek</h3>
+    <p>Soru, hata bildirimi veya öneri için: <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a>. E-postana uygulamadaki kullanıcı adını ve mümkünse Profil ekranındaki <em>Hesap kimliği</em>ni eklersen daha hızlı yardımcı olabiliriz.</p>
+  </section>
+
+  <section class="card">
+    <h2>English</h2>
+    <p>MapNinja is a quiz game that teaches flags, maps, capitals and countries. It has levels, a daily challenge, region packs, seasons, live duels with friends and a class mode for teachers.</p>
+    <h3>Support</h3>
+    <p>Questions, bug reports or ideas: <a href="mailto:sudevmobapps@gmail.com">sudevmobapps@gmail.com</a>. Adding your in-app username and, if possible, the <em>Account ID</em> from the Profile screen helps us answer faster.</p>
+  </section>
+
+  <footer>© 2026 MapNinja · <a href="privacy.html">Privacy</a> · <a href="delete-account.html">Delete account</a></footer>
+</main>
+</body>
+</html>
